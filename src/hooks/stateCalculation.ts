@@ -24,6 +24,8 @@ export function StateCalculation() {
       lastUpdate: today,
     };
 
+    // console.log(newData);
+
     setData(newData);
     saveData(newData);
   }

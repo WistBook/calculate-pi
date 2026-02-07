@@ -28,8 +28,10 @@ function sample(countSample: number): number {
  * 円の面積を計算する関数
  * @param countAll サンプルすべての数
  * @param countInside サンプルの内、円の内部である点の数
- * @returns 求めた面積
+ * @returns 求めた面積 (countAllが0で計算できないとき=>-1)
  */
 function computeArea(countAll: number, countInside: number) {
+  if (countAll === 0)
+    return -1;
   return 4 * countInside / countAll;
 }
