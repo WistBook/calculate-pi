@@ -5,7 +5,8 @@ function App() {
   const SAMPLES_KEY = "samples";
   const INSIDE_KEY = "inside";
   const DATE_KEY = "date";
-  const SAMPLES_THRESHOLD = 999999;
+  const SAMPLES_THRESHOLD = 1000000;
+  const BASE = 300;
 
   function getNumber(key: string): number | undefined {
     const temp = localStorage.getItem(key);
@@ -58,24 +59,10 @@ function App() {
       result = computeArea(samples, inside);
     }
     else {
-      samples = countAll * 2;
-      let diff = samples - countAll;
-      if (samples > SAMPLES_THRESHOLD) {
-        if (countAll <= SAMPLES_THRESHOLD) {
-          if (diff <= 5000) {
-            samples = 2 * (SAMPLES_THRESHOLD + 1);
-          }
-          else {
-            samples = SAMPLES_THRESHOLD + 1;
-          }
-          diff = samples - countAll;
-        }
-        else {
-          diff = SAMPLES_THRESHOLD + 1;
-          samples = countAll + diff;
-        }
-      }
-      inside = sample(diff) + countInside;
+      let incrementBy = Math.floor(Math.sqrt(countAll) * BASE);
+      incrementBy = Math.min(incrementBy, SAMPLES_THRESHOLD);
+      samples = countAll + incrementBy;
+      inside = sample(incrementBy) + countInside;
       result = computeArea(samples, inside);
     }
     storeData(samples, inside, today);
