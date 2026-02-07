@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { sample, computeArea } from "./utils/monteCarlo";
+import { calcIncrement } from "./utils/calcIncrement";
 
 function App() {
   const SAMPLES_KEY = "samples";
   const INSIDE_KEY = "inside";
   const DATE_KEY = "date";
-  const SAMPLES_THRESHOLD = 1000000;
-  const BASE = 300;
 
   function getNumber(key: string): number | undefined {
     const temp = localStorage.getItem(key);
@@ -50,21 +49,24 @@ function App() {
 
   function AddSamples() {
     setIsUpdated(true);
+
     let samples: number;
     let inside: number;
-    let result: number;
-    if (countAll === undefined || countInside === undefined || pi === undefined) {
-      samples = 100;
-      inside = sample(samples);
-      result = computeArea(samples, inside);
+    let incrementBy: number;
+    if (countAll === undefined || countInside === undefined) {
+      samples = 0;
+      inside = 0;
+      incrementBy = 100;
     }
     else {
-      let incrementBy = Math.floor(Math.sqrt(countAll) * BASE);
-      incrementBy = Math.min(incrementBy, SAMPLES_THRESHOLD);
-      samples = countAll + incrementBy;
-      inside = sample(incrementBy) + countInside;
-      result = computeArea(samples, inside);
+      samples = countAll;
+      inside = countInside;
+      incrementBy = calcIncrement(countAll);
     }
+    samples += incrementBy;
+    inside += sample(incrementBy);
+    const result = computeArea(samples, inside);
+
     storeData(samples, inside, today);
     setResult(samples, inside, result);
   }
