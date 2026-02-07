@@ -8,7 +8,7 @@ export function loadData(): StorageData {
     return {
       samples: 0,
       inside: 0,
-      lastUpdate: "----/--/--",
+      lastUpdate: "---- / -- / --",
     };
   }
   return JSON.parse(raw);
