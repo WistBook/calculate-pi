@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { sample, computeArea } from "./monteCarlo";
+import { sample, computeArea } from "./utils/monteCarlo";
 
 function App() {
   const SAMPLES_KEY = "samples";
