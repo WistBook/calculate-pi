@@ -1,15 +1,13 @@
+import { Header } from "./components/Header.tsx";
 import { StateCalculation } from "./hooks/stateCalculation"
 
 function App() {
   const { data, pi, isUpdated, addSamples } = StateCalculation();
 
+  // todo: UI分割
   return (
     <div className="min-h-screen bg-linear-to-br from-white to-green-200">
-      <header className="p-4 text-4xl">
-        <div className="pb-2 border-b-2 border-emerald-600">
-          モンテカルロサンプリング
-        </div>
-      </header>
+      <Header title="モンテカルロサンプリング" />
       <main className="pl-8">
         <div className="p-1 text-center">
           <div className="border-b mx-48">前回の日付</div>
