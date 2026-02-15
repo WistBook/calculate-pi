@@ -1,73 +1,35 @@
-# React + TypeScript + Vite
+# calculate-pi
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 概要
+モンテカルロ法によって円周率を計算する。
 
-Currently, two official plugins are available:
+一日一度いくつかサンプルを取り、現在のデータに追加することができる。
+この機能を実現するため`localStorage`を用いて、
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 合計試行回数
+- 円内部である点の数
+- 最終更新日
 
-## React Compiler
+を保存している。
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## モンテカルロサンプリング
+1. (0, 0) ~ (1, 1)の点をランダムにとる
+2. 点のうち円の内部にあるものを数える
+3. 円内部の点の割合を面積で近似する
 
-## Expanding the ESLint configuration
+$$\pi \approx 4 \times \frac{円内部の点の数}{試行回数}$$
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 技術
+- `Bun`
+- `Vite`
+- `React`
+- `TypeScript`
+- `Tailwind CSS`
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## 制作目的
+- 機能を小さく完成まで作りきる経験を得ること
+- VueとReactを比較して、それぞれの違いを体験によって学ぶこと
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## 学んだこと
+- 小さな機能であれば、 **"雑に実装する→コードを見直す"** ことによって十分つくることができる
+- Vueでは独自のファイルだったが、ReactはTS関数を使用する
